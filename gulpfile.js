@@ -25,6 +25,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import svgstore from 'gulp-svgstore';
 import posthtml from 'gulp-posthtml';
 import include from 'posthtml-include';
+import groupCssMediaQueries from "gulp-group-css-media-queries"
 
 const browserSync = browser.create();
 const sass = gulpSass(dartSass);
@@ -69,7 +70,7 @@ const html = function () {
 // Обработка SCSS
 
 const scss = function () {
-  return gulp.src("./src/sass/style.scss")
+  return gulp.src("./src/sass/style*.scss")
     .pipe(plumber({
       errorHandler: notify.onError(error => ({
         title: "SCSS",
@@ -77,7 +78,10 @@ const scss = function () {
       }))
     }))
     .pipe(gulpIf(isDev, sourcemaps.init()))
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: ['node_modules/bootstrap/scss']
+    }))
+    .pipe(gulpIf(isProd,groupCssMediaQueries()))
     .pipe(webpCss({}))
     .pipe(autoprefixer({grid: true}))
     .pipe(size({title: "До сжатия"}))
@@ -184,7 +188,7 @@ const server = function () {
 
 // Наблюдение
 const watcher = function () {
-  gulp.watch("src/*.html", gulp.series(html, sprite)).on("all", browserSync.reload);
+  gulp.watch("src/*.html", html).on("all", browserSync.reload);
   gulp.watch("src/sass/**/*.scss", scss).on("all", browserSync.reload);
   gulp.watch("src/js/*.js", js).on("all", browserSync.reload);
   gulp.watch("src/img/**/*.{png,jpg,svg}", images).on("all", browserSync.reload);

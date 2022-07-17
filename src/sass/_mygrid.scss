@@ -1,0 +1,23 @@
+// Количество колонок
+$grid-columns: 15;
+
+//желоба сетки
+$grid-gutter-width: 30px;
+
+//Контрольные точки
+
+$grid-breakpoints: (
+  ph:0,
+  tb:750px,
+  lp:950px,
+  dt:1200px
+);
+
+$container-max-widths: (
+  tb: 700px,
+  lp: 900px,
+  dt: 1100px
+);
+
+//Подключение сетки
+@import "../../node_modules/bootstrap/scss/bootstrap-grid";

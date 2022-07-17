@@ -1,4 +1,173 @@
 @import "normalize";
 @import "vairables";
-@import "base.scss";
 @import "blocks/header";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+
+//Подключение сетки
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../node_modules/bootstrap/scss/mixins/container";
+@import "../../node_modules/bootstrap/scss/mixins/grid";
+
+
+@mixin make-max-width-container($max-widths: $container-max-widths, $breakpoints: $grid-breakpoints) {
+  @each $breakpoint, $max-width in $max-widths {
+    @include media-breakpoint-up($breakpoint, $breakpoints) {
+      max-width: $max-width;
+    }
+  }
+}
+
+
+* {
+  box-sizing: border-box;
+  font-size: 30px;
+}
+
+
+.block {
+  background-color: #dddddd;
+  border: 1px solid #aaaaaa;
+  padding: 20px;
+  height: 100%;
+  text-align: center;
+}
+
+section {
+  margin-bottom: 50px;
+}
+
+.container {
+  @include make-container();
+  @include make-max-width-container();
+}
+
+.my-row {
+  @include make-row();
+  --bs-gutter-y: 1rem;
+
+  & > * {
+    @include make-col-ready();
+  }
+}
+
+.header {
+  @extend .my-row;
+
+  @include media-breakpoint-up(md) {
+    &__logo {
+      @include make-col(3);
+    }
+
+    &__nav {
+      @include make-col(9);
+    }
+  }
+}
+
+.promo {
+  @extend .my-row;
+
+  @include media-breakpoint-up(md) {
+    &__item {
+      @include make-col(6)
+    }
+  }
+}
+
+.clients {
+  @extend .my-row;
+
+  @include media-breakpoint-up(sm) {
+    &__item {
+      @include make-col(6)
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    &__item {
+      @include make-col(4)
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    &__item {
+      @include make-col(2)
+    }
+  }
+}
+
+.pricing {
+  @extend .my-row;
+
+  @include media-breakpoint-up(md) {
+    &__item {
+      @include make-col(4)
+    }
+  }
+}
+
+.team {
+  @extend .my-row;
+
+  @include media-breakpoint-up(lg) {
+    &__item {
+      @include make-col(3)
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    &__item {
+      @include make-col(6)
+    }
+  }
+}
+
+.footer {
+  @extend .my-row;
+
+  @include media-breakpoint-up(lg) {
+    &__social {
+      @include make-col(4)
+    }
+
+    &__contact {
+      @include make-col(3)
+    }
+
+    &__form {
+      @include make-col(5)
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    &__social {
+      @include make-col(6)
+    }
+
+    &__contact {
+      @include make-col(6)
+    }
+
+    &__form {
+      @include make-col(12)
+    }
+  }
+}

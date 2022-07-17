@@ -1,11 +1,25 @@
+@import "mygrid";
+
 * {
   box-sizing: border-box;
+  font-size: 30px;
 }
 
-@media (max-width: 700px) {
-  body {
-    color: #eeeeee;
-    background: url("../img/image-1.jpg") no-repeat;
-    background-size: cover;
-  }
+
+
+//.col {
+//  background-color: #eeeeee;
+//  border: 1px solid #aaaaaa;
+//}
+
+.block {
+  background-color: #dddddd;
+  border: 1px solid #aaaaaa;
+  padding: 20px;
+  height: 100%;
+  text-align: center;
+}
+
+section {
+  margin-bottom: 50px;
 }
