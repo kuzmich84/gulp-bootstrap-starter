@@ -11,3 +11,4 @@ npm-debug.*
 src/css/*.css
 src/css/*.map
 Thumbs.db
+build
