@@ -25,7 +25,8 @@ import sourcemaps from 'gulp-sourcemaps';
 import svgstore from 'gulp-svgstore';
 import posthtml from 'gulp-posthtml';
 import include from 'posthtml-include';
-import groupCssMediaQueries from "gulp-group-css-media-queries"
+import groupCssMediaQueries from "gulp-group-css-media-queries";
+import webpack  from "webpack-stream"
 
 const browserSync = browser.create();
 const sass = gulpSass(dartSass);
@@ -104,7 +105,10 @@ const js = function () {
       }))
     }))
     .pipe(babel({
-      presets: ['@babel/env']
+      presets: ['@babel/preset-env']
+    }))
+    .pipe(webpack({
+      mode:"development"
     }))
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest("./build/js", {sourcemaps: isDev}))
@@ -208,7 +212,7 @@ const dev = gulp.series(
 );
 
 // Задачи
-export {html, scss, sprite};
+export {html, scss, sprite, js};
 
 //Сборка
 export default isProd ? build : dev;
